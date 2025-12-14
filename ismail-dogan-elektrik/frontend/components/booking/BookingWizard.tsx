@@ -435,7 +435,6 @@ export default function BookingWizard() {
             label="Tam Adres"
             placeholder="Mahalle, sokak, bina no, daire no..."
             error={errors.address?.message}
-            leftIcon={<Home className="w-5 h-5" />}
             rows={3}
             {...field}
           />
