@@ -1,0 +1,7 @@
+# SSL sertifikaları bu klasöre eklenecek
+# Dosyalar:
+# - fullchain.pem
+# - privkey.pem
+
+# Let's Encrypt ile sertifika almak için:
+# certbot certonly --webroot -w /var/www/certbot -d ismaildoganelektrik.com -d www.ismaildoganelektrik.com

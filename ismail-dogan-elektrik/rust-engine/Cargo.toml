@@ -1,0 +1,53 @@
+[package]
+name = "elektrik-engine"
+version = "1.0.0"
+edition = "2021"
+authors = ["İsmail Doğan Elektrik <info@ismaildoganelektrik.com>"]
+description = "High-performance electrical load calculation engine"
+license = "MIT"
+
+[lib]
+name = "elektrik_engine"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# PyO3 for Python bindings
+pyo3 = { version = "0.20", features = ["extension-module", "abi3-py38"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Parallel computation
+rayon = "1.8"
+
+# Error handling
+thiserror = "1.0"
+anyhow = "1.0"
+
+# Numerical computation
+num-traits = "0.2"
+approx = "0.5"
+
+# Logging
+log = "0.4"
+env_logger = "0.10"
+
+[dev-dependencies]
+criterion = "0.5"
+proptest = "1.4"
+
+[[bench]]
+name = "calculations"
+harness = false
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3
+strip = true
+panic = "abort"
+
+[profile.dev]
+opt-level = 1
+debug = true

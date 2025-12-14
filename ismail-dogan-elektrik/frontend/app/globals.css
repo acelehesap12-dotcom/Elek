@@ -1,0 +1,381 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Orbitron Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+@layer base {
+  :root {
+    --neon-blue: #00a3ff;
+    --neon-blue-glow: #00d4ff;
+    --amber-alert: #f59e0b;
+    --amber-glow: #fbbf24;
+    --cyber-dark: #0a1929;
+    --cyber-dark-light: #102a43;
+  }
+
+  * {
+    @apply border-cyber-dark-700;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-cyber-dark-950 text-gray-100 font-sans antialiased;
+    background-image: 
+      radial-gradient(ellipse at top, rgba(0, 163, 255, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom, rgba(245, 158, 11, 0.03) 0%, transparent 50%);
+    min-height: 100vh;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-cyber-dark-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-neon-blue-700 rounded-full;
+    border: 2px solid transparent;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-neon-blue-500;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-neon-blue-500/30 text-white;
+  }
+}
+
+@layer components {
+  /* Cyber Button Base */
+  .cyber-button {
+    @apply relative px-8 py-4 font-display font-semibold text-sm uppercase tracking-wider;
+    @apply bg-gradient-to-r from-neon-blue-600 to-neon-blue-500;
+    @apply text-white rounded-cyber;
+    @apply transition-all duration-300 ease-out;
+    @apply hover:shadow-neon-blue hover:scale-105;
+    @apply active:scale-95;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
+  .cyber-button::before {
+    content: '';
+    @apply absolute inset-0 bg-white/10 opacity-0 transition-opacity duration-300;
+    clip-path: inherit;
+  }
+
+  .cyber-button:hover::before {
+    @apply opacity-100;
+  }
+
+  .cyber-button-amber {
+    @apply bg-gradient-to-r from-amber-alert-600 to-amber-alert-500;
+    @apply hover:shadow-neon-amber;
+  }
+
+  .cyber-button-outline {
+    @apply bg-transparent border-2 border-neon-blue-500;
+    @apply hover:bg-neon-blue-500/10;
+  }
+
+  /* Cyber Card */
+  .cyber-card {
+    @apply relative bg-cyber-dark-900/80 backdrop-blur-xl;
+    @apply border border-cyber-dark-700/50;
+    @apply rounded-lg overflow-hidden;
+    @apply transition-all duration-500 ease-out;
+    @apply hover:border-neon-blue-500/50 hover:shadow-card-hover;
+  }
+
+  .cyber-card::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-br from-neon-blue-500/5 to-transparent opacity-0;
+    @apply transition-opacity duration-500;
+  }
+
+  .cyber-card:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Glow Text */
+  .text-glow {
+    text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 40px var(--neon-blue);
+  }
+
+  .text-glow-amber {
+    text-shadow: 0 0 10px var(--amber-alert), 0 0 20px var(--amber-alert), 0 0 40px var(--amber-alert);
+  }
+
+  /* Cyber Input */
+  .cyber-input {
+    @apply w-full px-4 py-3 bg-cyber-dark-900/50 backdrop-blur-sm;
+    @apply border border-cyber-dark-600 rounded-lg;
+    @apply text-white placeholder-gray-500;
+    @apply transition-all duration-300;
+    @apply focus:outline-none focus:border-neon-blue-500 focus:ring-2 focus:ring-neon-blue-500/20;
+    @apply focus:shadow-inner-glow;
+  }
+
+  /* Scan Line Effect */
+  .scan-line {
+    @apply pointer-events-none fixed inset-0 z-50;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(0, 163, 255, 0.03) 50%,
+      transparent 100%
+    );
+    height: 100px;
+    animation: scan-line 8s linear infinite;
+  }
+
+  /* Grid Background */
+  .cyber-grid-bg {
+    background-image: 
+      linear-gradient(rgba(0, 163, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 163, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  /* Electric Border Animation */
+  .electric-border {
+    @apply relative;
+  }
+
+  .electric-border::after {
+    content: '';
+    @apply absolute inset-0 rounded-lg;
+    background: linear-gradient(90deg, 
+      transparent, 
+      var(--neon-blue), 
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: electric-flow 3s linear infinite;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    padding: 2px;
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-neon-blue-400 via-neon-blue-300 to-electric-cyan;
+  }
+
+  .gradient-text-amber {
+    @apply bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-amber-alert-400 via-amber-alert-300 to-amber-alert-200;
+  }
+
+  /* Floating Label */
+  .floating-label {
+    @apply absolute left-4 top-3 text-gray-500 pointer-events-none;
+    @apply transition-all duration-200 ease-out;
+  }
+
+  .floating-input:focus ~ .floating-label,
+  .floating-input:not(:placeholder-shown) ~ .floating-label {
+    @apply -top-2 left-2 text-xs text-neon-blue-400 bg-cyber-dark-900 px-2;
+  }
+
+  /* Progress Bar */
+  .cyber-progress {
+    @apply h-2 bg-cyber-dark-800 rounded-full overflow-hidden;
+  }
+
+  .cyber-progress-bar {
+    @apply h-full bg-gradient-to-r from-neon-blue-600 to-neon-blue-400;
+    @apply transition-all duration-500 ease-out;
+    box-shadow: 0 0 10px var(--neon-blue);
+  }
+
+  /* Tooltip */
+  .cyber-tooltip {
+    @apply absolute z-50 px-3 py-2 text-sm font-medium text-white;
+    @apply bg-cyber-dark-800 border border-cyber-dark-600 rounded-lg;
+    @apply shadow-lg backdrop-blur-sm;
+    @apply opacity-0 invisible transition-all duration-200;
+  }
+
+  .cyber-tooltip-trigger:hover .cyber-tooltip {
+    @apply opacity-100 visible;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Perspective for 3D effects */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  /* Noise texture overlay */
+  .noise-overlay {
+    position: relative;
+  }
+
+  .noise-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.02;
+    pointer-events: none;
+  }
+
+  /* Text stroke */
+  .text-stroke {
+    -webkit-text-stroke: 1px currentColor;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Mask gradient fade */
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+
+  .mask-fade-t {
+    mask-image: linear-gradient(to top, black 60%, transparent 100%);
+  }
+}
+
+/* Custom Animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.8;
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes electric-flow {
+  0% {
+    background-position: -200% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-10px) rotate(-1deg);
+  }
+}
+
+@keyframes scan-line {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes spark {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes circuit-pulse {
+  0%, 100% {
+    stroke-opacity: 0.3;
+  }
+  50% {
+    stroke-opacity: 1;
+  }
+}
+
+/* Canvas container for WebGL */
+.circuit-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Hero specific styles */
+.hero-gradient {
+  background: 
+    radial-gradient(ellipse at 20% 20%, rgba(0, 163, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(0, 163, 255, 0.05) 0%, transparent 70%);
+}
+
+/* Service card icon glow */
+.service-icon-glow {
+  filter: drop-shadow(0 0 8px var(--neon-blue)) drop-shadow(0 0 16px var(--neon-blue));
+}
+
+/* Form wizard step indicator */
+.step-indicator {
+  @apply relative flex items-center justify-center w-10 h-10 rounded-full;
+  @apply border-2 border-cyber-dark-600 bg-cyber-dark-900;
+  @apply transition-all duration-300;
+}
+
+.step-indicator.active {
+  @apply border-neon-blue-500 bg-neon-blue-500/20;
+  box-shadow: 0 0 15px rgba(0, 163, 255, 0.5);
+}
+
+.step-indicator.completed {
+  @apply border-green-500 bg-green-500/20;
+}
+
+.step-connector {
+  @apply flex-1 h-0.5 bg-cyber-dark-600 mx-2;
+  @apply transition-all duration-500;
+}
+
+.step-connector.active {
+  @apply bg-neon-blue-500;
+  box-shadow: 0 0 10px rgba(0, 163, 255, 0.5);
+}
