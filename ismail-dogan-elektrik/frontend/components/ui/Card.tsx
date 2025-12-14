@@ -229,16 +229,17 @@ CardFooter.displayName = "CardFooter";
 // FEATURE CARD
 // ============================================
 
-export interface FeatureCardProps extends HTMLAttributes<HTMLDivElement> {
+export interface FeatureCardProps {
   icon: React.ReactNode;
   title: string;
   description: string;
   accent?: "blue" | "amber";
+  className?: string;
 }
 
 export const FeatureCard = forwardRef<HTMLDivElement, FeatureCardProps>(
   (
-    { className, icon, title, description, accent = "blue", ...props },
+    { className, icon, title, description, accent = "blue" },
     ref
   ) => {
     const accentColors = {
@@ -268,7 +269,6 @@ export const FeatureCard = forwardRef<HTMLDivElement, FeatureCardProps>(
           accentColors[accent].glow,
           className
         )}
-        {...props}
       >
         {/* Icon */}
         <div
@@ -311,7 +311,7 @@ FeatureCard.displayName = "FeatureCard";
 // STAT CARD
 // ============================================
 
-export interface StatCardProps extends HTMLAttributes<HTMLDivElement> {
+export interface StatCardProps {
   label: string;
   value: string | number;
   prefix?: string;
@@ -321,11 +321,12 @@ export interface StatCardProps extends HTMLAttributes<HTMLDivElement> {
     value: number;
     positive: boolean;
   };
+  className?: string;
 }
 
 export const StatCard = forwardRef<HTMLDivElement, StatCardProps>(
   (
-    { className, label, value, prefix, suffix, icon, trend, ...props },
+    { className, label, value, prefix, suffix, icon, trend },
     ref
   ) => {
     return (
@@ -341,7 +342,6 @@ export const StatCard = forwardRef<HTMLDivElement, StatCardProps>(
           "border border-cyber-dark-700/50",
           className
         )}
-        {...props}
       >
         <div className="flex items-start justify-between">
           <div>
